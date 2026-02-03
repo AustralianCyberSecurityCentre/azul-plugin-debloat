@@ -1,3 +1,0 @@
-azul-runner>=0.8.0.0
-debloat
-pefile
