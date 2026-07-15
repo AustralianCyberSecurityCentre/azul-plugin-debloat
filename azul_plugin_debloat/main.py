@@ -57,7 +57,7 @@ class AzulPluginDebloat(BinaryPlugin):
                         pe,
                         out_path=str(out_file.name),
                         last_ditch_processing=False,
-                        cert_preservation=False,
+                        cert_preservation=False,  # ty: ignore[unknown-argument] False positive
                         log_message=self._ignore_debloat_logs,
                     )
 
@@ -66,13 +66,17 @@ class AzulPluginDebloat(BinaryPlugin):
                         # Better default message for no bloat
                         self.add_feature_values("bloat_tactic", "No Bloat")
                         return
-                    result_message = debloat.processor.RESULT_CODES[result_code]
+                    result_message = debloat.processor.RESULT_CODES[result_code]  # ty: ignore[unresolved-attribute] False positive
                     self.add_feature_values("bloat_tactic", result_message)
 
                     out_file.seek(0)
                     self.add_child_with_data_file({"action": "de-bloated"}, out_file)
 
                     temp_file_stats = os.stat(out_file.name)
+                    if file_ref.file_info is None or file_ref.file_info.size is None:
+                        return State(
+                            State.Label.ERROR_EXCEPTION, "Missing job data: file_info or file_info.size is None"
+                        )
                     self.add_feature_values("bloat_removed", file_ref.file_info.size - temp_file_stats.st_size)
 
         except pefile.PEFormatError:

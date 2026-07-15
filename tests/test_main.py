@@ -7,6 +7,7 @@ from azul_runner import (
     EventParent,
     JobResult,
     State,
+    DataLabel,
     test_template,
 )
 
@@ -42,22 +43,19 @@ class TestExecute(test_template.TestPlugin):
                 state=State(State.Label.COMPLETED),
                 events=[
                     Event(
-                        entity_type="binary",
-                        entity_id="80c8984124c10649e5d4f64d1204d6375ee8a95203e0c91da3763d80381e1f93",
+                        sha256="80c8984124c10649e5d4f64d1204d6375ee8a95203e0c91da3763d80381e1f93",
                         features={"bloat_removed": [FV(47810)], "bloat_tactic": [FV("Bloat in PE resources")]},
                     ),
                     Event(
                         parent=EventParent(
-                            entity_type="binary",
-                            entity_id="80c8984124c10649e5d4f64d1204d6375ee8a95203e0c91da3763d80381e1f93",
+                            sha256="80c8984124c10649e5d4f64d1204d6375ee8a95203e0c91da3763d80381e1f93",
                         ),
-                        entity_type="binary",
-                        entity_id="8f341ecc017430a13367234aeff62bba9e71a252a15be8a6e93eb53bce20a581",
+                        sha256="8f341ecc017430a13367234aeff62bba9e71a252a15be8a6e93eb53bce20a581",
                         relationship={"action": "de-bloated"},
                         data=[
                             EventData(
                                 hash="8f341ecc017430a13367234aeff62bba9e71a252a15be8a6e93eb53bce20a581",
-                                label="content",
+                                label=DataLabel.CONTENT,
                             )
                         ],
                     ),
@@ -79,8 +77,7 @@ class TestExecute(test_template.TestPlugin):
                 state=State(State.Label.COMPLETED),
                 events=[
                     Event(
-                        entity_type="binary",
-                        entity_id="702e31ed1537c279459a255460f12f0f2863f973e121cd9194957f4f3e7b0994",
+                        sha256="702e31ed1537c279459a255460f12f0f2863f973e121cd9194957f4f3e7b0994",
                         features={"bloat_tactic": [FV("No Bloat")]},
                     )
                 ],
