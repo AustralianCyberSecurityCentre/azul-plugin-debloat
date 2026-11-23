@@ -66,7 +66,7 @@ class AzulPluginDebloat(BinaryPlugin):
                         # Better default message for no bloat
                         self.add_feature_values("bloat_tactic", "No Bloat")
                         return
-                    result_message = debloat.processor.RESULT_CODES[result_code]  # ty: ignore[unresolved-attribute] False positive
+                    result_message = debloat.processor.RESULT_CODES[result_code]  # ty: ignore[missing-attribute] False positive
                     self.add_feature_values("bloat_tactic", result_message)
 
                     out_file.seek(0)
